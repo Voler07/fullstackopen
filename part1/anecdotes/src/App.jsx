@@ -1,4 +1,4 @@
-import { use, useState } from 'react'
+import { useState } from 'react'
 
 const Button = (props) => (
   <button onClick={props.onClick}>
