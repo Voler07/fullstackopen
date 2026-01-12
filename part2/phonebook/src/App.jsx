@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
+import personService from './service/persons.js'
 
-const Persons = ({persons}) => (
+const Persons = ({persons}) => {
+  return (
   <ul>
-        {persons.map(person => <li key={person.name}>{person.name} {person.number}</li>)}
+        {persons.map(person => <li key={person.name}>{person.name} {person.number}<button>delete</button></li>)}
   </ul>
-)
+  )
+}
 
 const PersonForm = ({
   addPerson,
@@ -43,8 +45,8 @@ const App = () => {
   const [searchWord, setSearchWord] = useState('')
 
   useEffect(() => {
-    axios
-      .get('http://localhost:3001/persons')
+    personService
+      .getAll()
       .then(response => {
         setPersons(response.data)
       })
@@ -73,9 +75,14 @@ const App = () => {
       alert(`${newName} is already added to phonebook`)
       return
     }
-    setPersons(persons.concat(personObject))
-    setNewName('')
-    setNewNumber('')
+    
+    personService
+      .create(personObject)
+      .then(response => {
+        setPersons(persons.concat(response.data))
+        setNewName('')
+        setNewNumber('')
+      })
   }
 
   const personToShow = persons.filter(item => item.name.toLowerCase().includes(searchWord))
