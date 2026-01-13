@@ -1,50 +1,11 @@
 import { useState, useEffect } from 'react'
 import personService from './service/persons.js'
 import Notification from './components/Notification.jsx'
+import Persons from './components/Persons.jsx'
+import Filter from './components/Filter.jsx'
+import PersonForm from './components/PersonForm.jsx'
 
-const Persons = ({persons, handleDelete}) => {
-  return (
-  <ul>
-        {persons.map(person => 
-          (<li key={person.name}>
-            {person.name} {person.number}
-            <button onClick={() => {handleDelete(person.id, person.name)}}>
-              delete
-            </button>
-          </li>
-        ))}
-  </ul>
-  )
-}
 
-const PersonForm = ({
-  addPerson,
-  newName,
-  handleNameChange,
-  newNumber,
-  handleNumberChange
-}) => (
-  <form onSubmit={addPerson}>
-        <div>
-          name: <input value={newName} onChange={handleNameChange}/>
-        </div>
-        <div>
-          number: <input value={newNumber} onChange={handleNumberChange}/>
-        </div>
-        <div>
-          <button type="submit">add</button>
-        </div>
-      </form>
-)
-
-const Filter = ({
-  searchWord,
-  handleSearchChange
-}) => (
-  <div>
-        filter shown with <input value={searchWord} onChange={handleSearchChange}/>
-  </div>
-) 
 
 const App = () => {
   const [persons, setPersons] = useState([]) 
@@ -159,7 +120,9 @@ const App = () => {
       }
     }
 
-  const personToShow = persons.filter(item => item.name.toLowerCase().includes(searchWord))
+  const personToShow = persons.filter(
+    item => item.name.toLowerCase().includes(searchWord)
+  )
 
   return (
     <div>
