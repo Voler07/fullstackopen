@@ -1,1 +1,1 @@
-https://fullstackopen-production-1894.up.railway.app/
+https://fullstackopen-production-fa21.up.railway.app/
